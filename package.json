@@ -22,7 +22,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "bunyan": "^1.8.12"
+    "@types/jira-client": "^6.4.2",
+    "bunyan": "^1.8.12",
+    "jira-client": "^6.7.1"
   },
   "peerDependencies": {
     "@jupiterone/jupiter-managed-integration-sdk": "^19.1.0"
