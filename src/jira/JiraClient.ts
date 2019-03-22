@@ -1,4 +1,4 @@
-import JiraApi from "./JiraApi";
+import JiraApi from "jira-client";
 
 import { Project, ServerInfo } from "./types";
 
@@ -38,7 +38,8 @@ export default class JiraClient {
   }
 
   public async fetchServerInfo(): Promise<ServerInfo> {
-    const info: ServerInfo = (await this.client.serverInfo()) as ServerInfo;
+    // @ts-ignore: calling private method
+    const info: ServerInfo = (await this.client.getServerInfo()) as ServerInfo;
 
     return info;
   }
