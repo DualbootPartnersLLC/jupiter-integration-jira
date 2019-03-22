@@ -4,9 +4,11 @@ import { JiraDataModel } from "./types";
 export default async function fetchJiraData(
   client: JiraClient,
 ): Promise<JiraDataModel> {
-  const [projects, serverInfo] = await Promise.all([
+  const [projects, serverInfo, users] = await Promise.all([
     client.fetchProjects(),
     client.fetchServerInfo(),
+    client.fetchUsers(),
+    client.fetchGroups(),
   ]);
 
   // const groupsMembers = await Promise.all(
@@ -19,5 +21,5 @@ export default async function fetchJiraData(
   //   return acc.concat(value);
   // }, []);
 
-  return { projects, serverInfo };
+  return { projects, serverInfo, users };
 }

@@ -17,7 +17,6 @@ export function createAccountEntity(serverInfo: ServerInfo): AccountEntity {
     version: serverInfo.version,
     buildNumber: serverInfo.buildNumber,
     buildDate: serverInfo.buildDate,
-    serverTime: serverInfo.serverTime,
     scmInfo: serverInfo.scmInfo,
     serverTitle: serverInfo.serverTitle,
   };

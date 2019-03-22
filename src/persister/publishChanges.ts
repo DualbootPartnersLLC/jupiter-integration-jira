@@ -9,6 +9,7 @@ import {
   createAccountEntity,
   createAccountProjectRelationships,
   createProjectEntities,
+  createUserEntities,
 } from "../converters";
 
 import { JiraDataModel } from "../jira";
@@ -99,6 +100,7 @@ export function convertEntities(
   return {
     accounts: [createAccountEntity(jiraData.serverInfo)],
     projects: createProjectEntities(jiraData.projects),
+    users: createUserEntities(jiraData.users),
   };
 }
 

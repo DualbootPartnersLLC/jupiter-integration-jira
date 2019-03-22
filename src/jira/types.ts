@@ -26,4 +26,25 @@ export interface Project {
 export interface JiraDataModel {
   serverInfo: ServerInfo;
   projects: Project[];
+  users: User[];
+}
+
+export interface User {
+  self: string;
+  id: string;
+  key: string;
+  name: string;
+  avatarUrls: {
+    [size: string]: string;
+  };
+  active: boolean;
+  accountId: string;
+  emailAddress: string;
+  displayName: string;
+  timeZone: string;
+  locale: string;
+}
+
+export interface Group {
+  name: string;
 }

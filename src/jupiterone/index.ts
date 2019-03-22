@@ -1,5 +1,6 @@
 export * from "./entities/AccountEntity";
 export * from "./entities/ProjectEntity";
+export * from "./entities/UserEntity";
 export * from "./entities/AccountProjectRelationship";
 
 import fetchEntitiesAndRelationships, {

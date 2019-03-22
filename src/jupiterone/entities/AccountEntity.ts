@@ -8,7 +8,6 @@ export interface AccountEntity extends EntityFromIntegration {
   version: string;
   buildNumber: number;
   buildDate: string;
-  serverTime: string;
   scmInfo: string;
   serverTitle: string;
 }
