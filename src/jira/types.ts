@@ -1,3 +1,10 @@
+export interface JiraDataModel {
+  serverInfo: ServerInfo;
+  projects: Project[];
+  users: User[];
+  issues: Issue[];
+}
+
 export interface ServerInfo {
   baseUrl: string;
   version: string;
@@ -23,12 +30,6 @@ export interface Project {
   isPrivate: boolean;
 }
 
-export interface JiraDataModel {
-  serverInfo: ServerInfo;
-  projects: Project[];
-  users: User[];
-}
-
 export interface User {
   self: string;
   id: string;
@@ -42,9 +43,44 @@ export interface User {
   emailAddress: string;
   displayName: string;
   timeZone: string;
-  locale: string;
+  locale?: string;
 }
 
-export interface Group {
-  name: string;
+export interface Issue {
+  id: string;
+  self: string;
+  key: string;
+  fields: {
+    issuetype: {
+      name: string;
+      self: string;
+    };
+    project: Project;
+    created: string;
+    labels: string[];
+    priority: {
+      name: string;
+      id: string;
+    };
+    status: {
+      self: string;
+      description: string;
+      name: string;
+      key: string;
+      colorName: string;
+      id: string;
+      statusCategory?: {
+        self: string;
+        id: string;
+        key: string;
+        colorName: string;
+        name: string;
+      };
+    };
+    creator: User;
+    reporter: User;
+    assignee?: User;
+    summary: string;
+    subtasks: Issue[];
+  };
 }

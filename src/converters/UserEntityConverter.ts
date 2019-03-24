@@ -16,7 +16,6 @@ export function createUserEntities(data: User[]): UserEntity[] {
       name: user.name,
       email: user.emailAddress,
       timeZone: user.timeZone,
-      locale: user.locale,
       active: user.active,
     };
 

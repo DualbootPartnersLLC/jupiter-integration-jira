@@ -6,6 +6,7 @@ export interface JupiterOneEntitiesData {
   accounts: Entities.AccountEntity[];
   projects: Entities.ProjectEntity[];
   users: Entities.UserEntity[];
+  issues: Entities.IssueEntity[];
 }
 
 export interface JupiterOneRelationshipsData {
@@ -31,7 +32,7 @@ export default async function fetchEntitiesAndRelationships(
 async function fetchEntities(
   graph: GraphClient,
 ): Promise<JupiterOneEntitiesData> {
-  const [accounts, projects, users] = await Promise.all([
+  const [accounts, projects, users, issues] = await Promise.all([
     graph.findEntitiesByType<Entities.AccountEntity>(
       Entities.ACCOUNT_ENTITY_TYPE,
     ),
@@ -39,12 +40,14 @@ async function fetchEntities(
       Entities.PROJECT_ENTITY_TYPE,
     ),
     graph.findEntitiesByType<Entities.UserEntity>(Entities.USER_ENTITY_TYPE),
+    graph.findEntitiesByType<Entities.IssueEntity>(Entities.ISSUE_ENTITY_TYPE),
   ]);
 
   return {
     accounts,
     projects,
     users,
+    issues,
   };
 }
 

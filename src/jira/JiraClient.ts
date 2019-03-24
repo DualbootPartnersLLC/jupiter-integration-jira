@@ -1,6 +1,6 @@
-import JiraApi from "./JiraApi";
+import JiraApi from "jira-client";
 
-import { Group, Project, ServerInfo, User } from "./types";
+import { Issue, Project, ServerInfo, User } from "./types";
 
 interface JiraParams {
   host: string;
@@ -39,17 +39,16 @@ export default class JiraClient {
   public async fetchServerInfo(): Promise<ServerInfo> {
     // @ts-ignore: calling private method
     const info: ServerInfo = (await this.client.getServerInfo()) as ServerInfo;
-
     return info;
   }
 
-  public async fetchGroups(): Promise<Group[]> {
-    const response = await this.client.findGroups({
-      query: "",
-      maxResults: 1000,
-    });
-    const groups: Group[] = response.groups as Group[];
-    return groups;
+  public async fetchIssues(project: string): Promise<Issue[]> {
+    const response = await this.client.searchJira(`project='${project}'`);
+    if (!response.issues) {
+      return [];
+    }
+    const issues: Issue[] = response.issues as Issue[];
+    return issues;
   }
 
   public async fetchUsers(): Promise<User[]> {

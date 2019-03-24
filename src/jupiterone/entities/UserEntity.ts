@@ -10,6 +10,5 @@ export interface UserEntity extends EntityFromIntegration {
   name: string;
   email: string;
   timeZone: string;
-  locale: string;
   active: boolean;
 }
