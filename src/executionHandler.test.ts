@@ -8,7 +8,7 @@ import initializeContext from "./initializeContext";
 jest.mock("./initializeContext");
 
 test("executionHandler", async () => {
-  const executionContext: any = {
+  const executionContext = {
     graph: {
       findEntitiesByType: jest.fn().mockResolvedValue([]),
       findRelationshipsByType: jest.fn().mockResolvedValue([]),
@@ -20,9 +20,10 @@ test("executionHandler", async () => {
     },
     provider: {
       authenticate: jest.fn().mockReturnValue({}),
+      fetchProjects: jest.fn().mockReturnValue([]),
+      fetchServerInfo: jest.fn().mockReturnValue([]),
+      fetchIssues: jest.fn().mockReturnValue([]),
       fetchUsers: jest.fn().mockReturnValue([]),
-      fetchGroups: jest.fn().mockReturnValue([]),
-      fetchRoles: jest.fn().mockReturnValue([]),
     },
     account: {
       id: "",
@@ -41,11 +42,12 @@ test("executionHandler", async () => {
   await executionHandler(invocationContext);
 
   expect(initializeContext).toHaveBeenCalledWith(invocationContext);
+  expect(executionContext.provider.fetchProjects).toHaveBeenCalledTimes(1);
+  expect(executionContext.provider.fetchServerInfo).toHaveBeenCalledTimes(1);
   expect(executionContext.provider.fetchUsers).toHaveBeenCalledTimes(1);
-  expect(executionContext.provider.fetchGroups).toHaveBeenCalledTimes(1);
-  expect(executionContext.provider.fetchGroups).toHaveBeenCalledTimes(1);
-  expect(executionContext.persister.processEntities).toHaveBeenCalledTimes(5);
+  expect(executionContext.provider.fetchIssues).toHaveBeenCalledTimes(0);
+  expect(executionContext.persister.processEntities).toHaveBeenCalledTimes(4);
   expect(
     executionContext.persister.publishPersisterOperations,
-  ).toHaveBeenCalledTimes(2);
+  ).toHaveBeenCalledTimes(1);
 });

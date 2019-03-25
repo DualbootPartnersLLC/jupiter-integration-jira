@@ -19,18 +19,31 @@ export default async function fetchJiraData(
     instance: { config },
   } = context;
 
-  const projectsToIngest: string[] =
-    config.projects.length === 0
-      ? projects.map(project => project.name)
-      : config.projects;
+  const allProjectsNames: string[] =
+    projects &&
+    projects.reduce(
+      (acc, project) => {
+        if (project && project.name) {
+          acc.concat(project.name);
+        }
+        return acc;
+      },
+      [] as string[],
+    );
+
+  const projectsToIngest: string[] = config.projects
+    ? config.projects.split(",")
+    : allProjectsNames;
 
   const projectIssues = await Promise.all(
     projectsToIngest.map((project: string) => client.fetchIssues(project)),
   );
 
-  const issues = projectIssues.reduce((acc, value) => {
-    return acc.concat(value);
-  }, []);
+  const issues =
+    projectIssues &&
+    projectIssues.reduce((acc, value) => {
+      return acc.concat(value);
+    }, []);
 
   return { projects, serverInfo, users, issues };
 }

@@ -9,13 +9,11 @@ import { executionHandler } from "../src/index";
 async function run(): Promise<void> {
   const logger = createLogger({ name: "local", level: TRACE });
 
-  const projects = process.env.PROJECTS_KEY || "";
-
   const integrationConfig = {
     jiraLogin: process.env.JIRA_LOGIN,
     jiraPassword: process.env.JIRA_PASSWORD,
     host: process.env.JIRA_HOST,
-    projects: projects ? projects.split(",") : [],
+    projects: process.env.PROJECTS_KEY,
   };
 
   const invocationArgs = {
