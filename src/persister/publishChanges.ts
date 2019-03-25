@@ -8,7 +8,9 @@ import {
 import {
   createAccountEntity,
   createAccountProjectRelationships,
+  createIssueCreatedByUserRelationships,
   createIssueEntities,
+  createIssueReportedByUserRelationships,
   createProjectEntities,
   createProjectIssueRelationships,
   createUserEntities,
@@ -117,6 +119,14 @@ export function convertRelationships(
     projectIssueRelationships: createProjectIssueRelationships(
       jiraData.projects,
       jiraData.issues,
+    ),
+    issueCreatedByUserRelationships: createIssueCreatedByUserRelationships(
+      jiraData.issues,
+      jiraData.users,
+    ),
+    issueReportedByUserRelationships: createIssueReportedByUserRelationships(
+      jiraData.issues,
+      jiraData.users,
     ),
   };
 }

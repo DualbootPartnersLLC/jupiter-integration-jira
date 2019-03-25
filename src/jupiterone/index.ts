@@ -4,6 +4,7 @@ export * from "./entities/UserEntity";
 export * from "./entities/IssueEntity";
 export * from "./entities/AccountProjectRelationship";
 export * from "./entities/ProjectIssueRelationship";
+export * from "./entities/IssueUserRelationship";
 
 import fetchEntitiesAndRelationships, {
   JupiterOneDataModel,

@@ -9,3 +9,7 @@ export {
 export {
   createProjectIssueRelationships,
 } from "./ProjectIssueRealationshipConverter";
+export {
+  createIssueCreatedByUserRelationships,
+  createIssueReportedByUserRelationships,
+} from "./IssueUserRelationshipConverter";
