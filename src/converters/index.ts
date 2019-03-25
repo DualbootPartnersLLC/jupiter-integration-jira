@@ -6,3 +6,6 @@ export { createIssueEntities } from "./IssueEntityConverter";
 export {
   createAccountProjectRelationships,
 } from "./AccountProjectRelationshipConverter";
+export {
+  createProjectIssueRelationships,
+} from "./ProjectIssueRealationshipConverter";

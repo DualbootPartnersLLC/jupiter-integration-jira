@@ -10,11 +10,11 @@ import {
   createAccountProjectRelationships,
   createIssueEntities,
   createProjectEntities,
+  createProjectIssueRelationships,
   createUserEntities,
 } from "../converters";
 
 import { JiraDataModel } from "../jira";
-
 import {
   JupiterOneDataModel,
   JupiterOneEntitiesData,
@@ -111,8 +111,12 @@ export function convertRelationships(
 ): JupiterOneRelationshipsData {
   return {
     accountProjectRelationships: createAccountProjectRelationships(
-      jiraData.projects,
       jiraData.serverInfo,
+      jiraData.projects,
+    ),
+    projectIssueRelationships: createProjectIssueRelationships(
+      jiraData.projects,
+      jiraData.issues,
     ),
   };
 }

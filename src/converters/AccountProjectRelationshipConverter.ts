@@ -11,8 +11,8 @@ import {
 import generateKey from "../utils/generateKey";
 
 export function createAccountProjectRelationships(
-  projects: Project[],
   serverInfo: ServerInfo,
+  projects: Project[],
 ) {
   const defaultValue: AccountProjectRelationship[] = [];
 

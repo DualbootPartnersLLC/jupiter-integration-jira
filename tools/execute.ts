@@ -15,7 +15,7 @@ async function run(): Promise<void> {
     jiraLogin: process.env.JIRA_LOGIN,
     jiraPassword: process.env.JIRA_PASSWORD,
     host: process.env.JIRA_HOST,
-    projects: projects.split(","),
+    projects: projects ? projects.split(",") : [],
   };
 
   const invocationArgs = {
