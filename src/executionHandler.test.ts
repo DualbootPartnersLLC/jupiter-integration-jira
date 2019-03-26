@@ -182,7 +182,7 @@ describe("Config initialization with data", () => {
     const invocationContext = {
       instance: {
         config: {
-          projects: [],
+          projects: "[]",
         },
       },
     } as IntegrationExecutionContext<IntegrationInvocationEvent>;
@@ -204,7 +204,7 @@ describe("Config initialization with data", () => {
     const invocationContext = {
       instance: {
         config: {
-          projects: [""],
+          projects: '[""]',
         },
       },
     } as IntegrationExecutionContext<IntegrationInvocationEvent>;
@@ -226,11 +226,12 @@ describe("Config initialization with data", () => {
     const invocationContext = {
       instance: {
         config: {
-          projects: [
-            { key: "First Project" },
-            { key: "Second Project" },
-            { key: "Third Project" },
-          ],
+          projects:
+            "[" +
+            '{ "key": "First Project" },' +
+            '{ "key": "Second Project" },' +
+            '{ "key": "Third Project" }' +
+            "]",
         },
       },
     } as IntegrationExecutionContext<IntegrationInvocationEvent>;
