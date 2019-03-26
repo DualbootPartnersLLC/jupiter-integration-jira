@@ -12,9 +12,9 @@
       "deploymentType": "Cloud",
       "buildNumber": 100099,
       "buildDate": "2019-03-25T04:00:00.000+0400",
-      "serverTime": "2019-03-26T21:25:29.104+0400",
+      "serverTime": "2019-03-27T02:55:24.428+0400",
       "scmInfo": "e83467feebdf2319aa1c51e89e38c2c9ae8f4d2a",
-      "serverTitle": "Jira2"
+      "serverTitle": "Jira"
     },
     "rawHeaders": [
       "Server",
@@ -28,13 +28,13 @@
       "Strict-Transport-Security",
       "max-age=315360000; includeSubDomains; preload",
       "Date",
-      "Tue, 26 Mar 2019 17:25:29 GMT",
+      "Tue, 26 Mar 2019 22:55:24 GMT",
       "ATL-TraceId",
-      "985ed9c92d0aadeb",
+      "ea3553c07eb7ec70",
       "X-AACCOUNTID",
       "5c937560807a642e13136645",
       "X-AREQUESTID",
-      "2188480c-76db-4acd-be7d-aaae335dbdc4",
+      "8192d93e-3c2c-47c3-98b2-7c872dfb9cf0",
       "X-XSS-Protection",
       "1; mode=block",
       "Transfer-Encoding",
@@ -48,7 +48,7 @@
       "Connection",
       "close",
       "Set-Cookie",
-      "atlassian.xsrf.token=7c75c5a7-5045-4a1c-a650-e9b79b0e356f_739191b96d1df17a742654fa41ac47583b8b63f3_lin; Path=/; Secure",
+      "atlassian.xsrf.token=7c75c5a7-5045-4a1c-a650-e9b79b0e356f_2e6d22b9ef36d20909af8ffcee1d80fda6bd168b_lin; Path=/; Secure",
       "X-Seraph-LoginReason",
       "OK"
     ]

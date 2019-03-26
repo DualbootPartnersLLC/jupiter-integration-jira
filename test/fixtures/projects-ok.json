@@ -1,0 +1,81 @@
+[
+  {
+    "scope": "https://dualboot-test.atlassian.net:443",
+    "method": "GET",
+    "path": "/rest/api/3/project",
+    "body": "",
+    "status": 200,
+    "response": [
+      {
+        "expand": "description,lead,issueTypes,url,projectKeys",
+        "self": "https://dualboot-test.atlassian.net/rest/api/3/project/10000",
+        "id": "10000",
+        "key": "FP",
+        "name": "First Project",
+        "avatarUrls": {
+          "48x48": "https://dualboot-test.atlassian.net/secure/projectavatar?avatarId=10324",
+          "24x24": "https://dualboot-test.atlassian.net/secure/projectavatar?size=small&avatarId=10324",
+          "16x16": "https://dualboot-test.atlassian.net/secure/projectavatar?size=xsmall&avatarId=10324",
+          "32x32": "https://dualboot-test.atlassian.net/secure/projectavatar?size=medium&avatarId=10324"
+        },
+        "projectTypeKey": "software",
+        "simplified": false,
+        "style": "classic",
+        "isPrivate": false
+      },
+      {
+        "expand": "description,lead,issueTypes,url,projectKeys",
+        "self": "https://dualboot-test.atlassian.net/rest/api/3/project/10001",
+        "id": "10001",
+        "key": "SP",
+        "name": "Second project",
+        "avatarUrls": {
+          "48x48": "https://dualboot-test.atlassian.net/secure/projectavatar?avatarId=10324",
+          "24x24": "https://dualboot-test.atlassian.net/secure/projectavatar?size=small&avatarId=10324",
+          "16x16": "https://dualboot-test.atlassian.net/secure/projectavatar?size=xsmall&avatarId=10324",
+          "32x32": "https://dualboot-test.atlassian.net/secure/projectavatar?size=medium&avatarId=10324"
+        },
+        "projectTypeKey": "software",
+        "simplified": false,
+        "style": "classic",
+        "isPrivate": false
+      }
+    ],
+    "rawHeaders": [
+      "Server",
+      "Atlassian Proxy/1.13.6.2",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "no-cache, no-store, no-transform",
+      "Content-Type",
+      "application/json;charset=UTF-8",
+      "Strict-Transport-Security",
+      "max-age=315360000; includeSubDomains; preload",
+      "Date",
+      "Tue, 26 Mar 2019 23:01:23 GMT",
+      "ATL-TraceId",
+      "15c713b446c311d0",
+      "X-AACCOUNTID",
+      "5c937560807a642e13136645",
+      "X-AREQUESTID",
+      "78157178-1c9f-4d3a-895c-173182f741a7",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Transfer-Encoding",
+      "chunked",
+      "Timing-Allow-Origin",
+      "*",
+      "X-AUSERNAME",
+      "admin",
+      "X-Content-Type-Options",
+      "nosniff",
+      "Connection",
+      "close",
+      "Set-Cookie",
+      "atlassian.xsrf.token=7c75c5a7-5045-4a1c-a650-e9b79b0e356f_8b2c76638264a9b4d20015e13c08da8217134f2d_lin; Path=/; Secure",
+      "X-Seraph-LoginReason",
+      "OK"
+    ]
+  }
+]

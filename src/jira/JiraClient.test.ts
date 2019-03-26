@@ -1,6 +1,9 @@
 // import { readFileSync } from "fs";
+import "jest-extended";
 import nock from "nock";
 import JiraClient from "./JiraClient";
+
+// import { Issue, Project, ServerInfo, User } from "./types";
 
 // jest.mock("jira-client", () => {
 //   return jest.fn().mockImplementation(() => {
@@ -21,10 +24,12 @@ import JiraClient from "./JiraClient";
 //   };
 // }
 describe("JiraClient test", () => {
-  nock.back.fixtures = `${__dirname}/../../test/fixtures/`;
-  nock.back.setMode("record");
+  beforeAll(() => {
+    nock.back.fixtures = `${__dirname}/../../test/fixtures/`;
+    nock.back.setMode("record");
+  });
 
-  async function getJiraData() {
+  async function getAuthenticatedClient() {
     const client = new JiraClient({
       host: "dualboot-test.atlassian.net",
       username: "admin@test.dualboot.com",
@@ -32,36 +37,50 @@ describe("JiraClient test", () => {
     });
 
     await client.authenticate();
-
     return client;
   }
 
-  test("fetch server info with bad response", async () => {
-    nock.back("jiraData.json", async nockDone => {
-      const client = await getJiraData();
-      const response = await client.fetchServerInfo();
-      nockDone();
-      expect(response).toEqual([]);
-    });
+  test("fetch server info with ok", async () => {
+    const { nockDone } = await nock.back("server-info-ok.json");
+    const client = await getAuthenticatedClient();
+    const response = await client.fetchServerInfo();
+    expect(response).toContainKeys(["baseUrl", "serverTitle"]);
+    nockDone();
   });
 
-  test("fetch projects with bad response", async () => {
-    const client = await getJiraData();
-    const response = await client.fetchProjects();
-    expect(response).toEqual([]);
+  // test("fetch server info with bad", async () => {
+  //   const { nockDone } = await nock.back('server-info-bad.json');
+  //   const client = await getAuthenticatedClient();
+  //   await client.fetchServerInfo();
+  //   // expect(response).toContainKeys(['baseUrl', 'serverTitle']);
+  //   nockDone();
+  // });
+
+  test("fetch projects info with ok", async () => {
+    const { nockDone } = await nock.back("projects-ok.json");
+    const client = await getAuthenticatedClient();
+    await client.fetchProjects();
+    // expect(response).toContainKeys(['baseUrl', 'serverTitle']);
+    nockDone();
   });
 
-  test("fetch users with bad response", async () => {
-    const client = await getJiraData();
-    const response = await client.fetchUsers();
-    expect(response).toEqual([]);
-  });
+  // test("fetch projects with bad response", async () => {
+  //   const client = await getAuthenticatedClient();
+  //   const response = await client.fetchProjects();
+  //   expect(response).toEqual([]);
+  // });
 
-  test("fetch issue with bad response", async () => {
-    const client = await getJiraData();
-    const response = await client.fetchIssues("First Project");
-    expect(response).toEqual([]);
-  });
+  // test("fetch users with bad response", async () => {
+  //   const client = await getAuthenticatedClient();
+  //   const response = await client.fetchUsers();
+  //   expect(response).toEqual([]);
+  // });
+
+  // test("fetch issue with bad response", async () => {
+  //   const client = await getAuthenticatedClient();
+  //   const response = await client.fetchIssues("First Project");
+  //   expect(response).toEqual([]);
+  // });
 
   nock.restore();
 });
