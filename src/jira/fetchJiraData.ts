@@ -5,6 +5,10 @@ import {
 import JiraClient from "./JiraClient";
 import { JiraDataModel } from "./types";
 
+interface ProjectKey {
+  key: string;
+}
+
 export default async function fetchJiraData(
   client: JiraClient,
   context: IntegrationExecutionContext<IntegrationInvocationEvent>,
@@ -19,24 +23,18 @@ export default async function fetchJiraData(
     instance: { config },
   } = context;
 
-  const allProjectsNames: string[] =
-    projects &&
-    projects.reduce(
-      (acc, project) => {
-        if (project && project.name) {
-          acc.concat(project.name);
-        }
-        return acc;
-      },
-      [] as string[],
-    );
+  const fetchedProjectsKeys: ProjectKey[] =
+    projects && projects.map(project => ({ key: project.name }));
 
-  const projectsToIngest: string[] = config.projects
-    ? config.projects.split(",")
-    : allProjectsNames;
+  const configProjectsKeys = config.projects && JSON.parse(config.projects);
+
+  const projectsToIngest: ProjectKey[] =
+    configProjectsKeys && configProjectsKeys.length > 0
+      ? configProjectsKeys
+      : fetchedProjectsKeys;
 
   const projectIssues = await Promise.all(
-    projectsToIngest.map((project: string) => client.fetchIssues(project)),
+    projectsToIngest.map((item: ProjectKey) => client.fetchIssues(item.key)),
   );
 
   const issues =

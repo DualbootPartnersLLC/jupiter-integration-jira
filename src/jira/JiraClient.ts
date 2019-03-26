@@ -43,7 +43,8 @@ export default class JiraClient {
   }
 
   public async fetchIssues(project: string): Promise<Issue[]> {
-    const response = await this.client.searchJira(`project='${project}'`);
+    const response =
+      (project && (await this.client.searchJira(`project='${project}'`))) || {};
     if (!response.issues) {
       return [];
     }
