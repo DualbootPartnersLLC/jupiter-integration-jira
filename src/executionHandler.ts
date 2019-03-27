@@ -13,10 +13,12 @@ import publishChanges from "./persister/publishChanges";
 export default async function executionHandler(
   context: IntegrationExecutionContext<IntegrationInvocationEvent>,
 ): Promise<IntegrationExecutionResult> {
-  const { graph, persister, provider } = await initializeContext(context);
+  const { graph, persister, provider, projects } = await initializeContext(
+    context,
+  );
 
   const oldData = await fetchEntitiesAndRelationships(graph);
-  const jiraData = await fetchJiraData(provider, context);
+  const jiraData = await fetchJiraData(provider, projects);
 
   return {
     operations: summarizePersisterOperationsResults(

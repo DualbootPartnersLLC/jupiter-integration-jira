@@ -17,5 +17,6 @@ export default async function initializeContext(
     graph,
     persister,
     provider,
+    projects: context.instance.config.projects,
   };
 }

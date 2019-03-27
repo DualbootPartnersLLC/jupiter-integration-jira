@@ -1,7 +1,3 @@
-import {
-  IntegrationExecutionContext,
-  IntegrationInvocationEvent,
-} from "@jupiterone/jupiter-managed-integration-sdk";
 import JiraClient from "./JiraClient";
 import { JiraDataModel } from "./types";
 
@@ -11,7 +7,7 @@ interface ProjectKey {
 
 export default async function fetchJiraData(
   client: JiraClient,
-  context: IntegrationExecutionContext<IntegrationInvocationEvent>,
+  configProjects: string,
 ): Promise<JiraDataModel> {
   const [projects, serverInfo, users] = await Promise.all([
     client.fetchProjects(),
@@ -19,14 +15,10 @@ export default async function fetchJiraData(
     client.fetchUsers(),
   ]);
 
-  const {
-    instance: { config },
-  } = context;
-
   const fetchedProjectsKeys: ProjectKey[] =
     projects && projects.map(project => ({ key: project.name }));
 
-  const configProjectsKeys = config.projects && JSON.parse(config.projects);
+  const configProjectsKeys = configProjects && JSON.parse(configProjects);
 
   const projectsToIngest: ProjectKey[] =
     configProjectsKeys && configProjectsKeys.length > 0

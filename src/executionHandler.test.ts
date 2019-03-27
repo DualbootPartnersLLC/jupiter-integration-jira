@@ -70,10 +70,7 @@ describe("Config initialization with empty data", () => {
         fetchIssues: jest.fn().mockReturnValue([]),
         fetchUsers: jest.fn().mockReturnValue([]),
       },
-      account: {
-        id: "",
-        name: "",
-      },
+      projects: undefined,
     };
 
     (initializeContext as jest.Mock).mockReturnValue(executionContext);
@@ -106,7 +103,7 @@ describe("Config initialization with data", () => {
     };
     persister: any;
     provider: any;
-    account?: { id: string; name: string };
+    projects?: string;
   };
 
   beforeAll(() => {
@@ -127,13 +124,7 @@ describe("Config initialization with data", () => {
         fetchIssues: jest.fn().mockReturnValue([]),
         fetchUsers: jest.fn().mockReturnValue([]),
       },
-      account: {
-        id: "",
-        name: "",
-      },
     };
-
-    (initializeContext as jest.Mock).mockReturnValue(executionContext);
   });
 
   test("executionHandler with two projects from fetched data and empty config", async () => {
@@ -142,6 +133,8 @@ describe("Config initialization with data", () => {
         config: {},
       },
     } as IntegrationExecutionContext<IntegrationInvocationEvent>;
+
+    (initializeContext as jest.Mock).mockReturnValue(executionContext);
 
     await executionHandler(invocationContext);
 
@@ -165,6 +158,10 @@ describe("Config initialization with data", () => {
       },
     } as IntegrationExecutionContext<IntegrationInvocationEvent>;
 
+    executionContext.projects = invocationContext.instance.config.projects;
+
+    (initializeContext as jest.Mock).mockReturnValue(executionContext);
+
     await executionHandler(invocationContext);
 
     expect(initializeContext).toHaveBeenCalledWith(invocationContext);
@@ -187,6 +184,10 @@ describe("Config initialization with data", () => {
       },
     } as IntegrationExecutionContext<IntegrationInvocationEvent>;
 
+    executionContext.projects = invocationContext.instance.config.projects;
+
+    (initializeContext as jest.Mock).mockReturnValue(executionContext);
+
     await executionHandler(invocationContext);
 
     expect(initializeContext).toHaveBeenCalledWith(invocationContext);
@@ -200,7 +201,7 @@ describe("Config initialization with data", () => {
     ).toHaveBeenCalledTimes(1);
   });
 
-  test("executionHandler with two projects from fetched data and projects with incorrect item from config", async () => {
+  test("executionHandler with two projects from fetched data and projects with empty item from config", async () => {
     const invocationContext = {
       instance: {
         config: {
@@ -208,6 +209,10 @@ describe("Config initialization with data", () => {
         },
       },
     } as IntegrationExecutionContext<IntegrationInvocationEvent>;
+
+    executionContext.projects = invocationContext.instance.config.projects;
+
+    (initializeContext as jest.Mock).mockReturnValue(executionContext);
 
     await executionHandler(invocationContext);
 
@@ -235,6 +240,41 @@ describe("Config initialization with data", () => {
         },
       },
     } as IntegrationExecutionContext<IntegrationInvocationEvent>;
+
+    executionContext.projects = invocationContext.instance.config.projects;
+
+    (initializeContext as jest.Mock).mockReturnValue(executionContext);
+
+    await executionHandler(invocationContext);
+
+    expect(initializeContext).toHaveBeenCalledWith(invocationContext);
+    expect(executionContext.provider.fetchProjects).toHaveBeenCalledTimes(1);
+    expect(executionContext.provider.fetchServerInfo).toHaveBeenCalledTimes(1);
+    expect(executionContext.provider.fetchUsers).toHaveBeenCalledTimes(1);
+    expect(executionContext.provider.fetchIssues).toHaveBeenCalledTimes(3);
+    expect(executionContext.persister.processEntities).toHaveBeenCalledTimes(4);
+    expect(
+      executionContext.persister.publishPersisterOperations,
+    ).toHaveBeenCalledTimes(1);
+  });
+
+  test("executionHandler with two projects from fetched data and projects with incorrect items from config", async () => {
+    const invocationContext = {
+      instance: {
+        config: {
+          projects:
+            "[" +
+            '{ "key": "" },' +
+            '{ "key": " " },' +
+            '{ "key": "Fake Project" }' +
+            "]",
+        },
+      },
+    } as IntegrationExecutionContext<IntegrationInvocationEvent>;
+
+    executionContext.projects = invocationContext.instance.config.projects;
+
+    (initializeContext as jest.Mock).mockReturnValue(executionContext);
 
     await executionHandler(invocationContext);
 
