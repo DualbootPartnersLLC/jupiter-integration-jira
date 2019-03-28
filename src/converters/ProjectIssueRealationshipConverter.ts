@@ -32,15 +32,5 @@ export function createProjectIssueRelationships(
 }
 
 function generateParentKeyForIssue(projects: Project[], issue: Issue): string {
-  const project = findProjectByIssue(projects, issue);
-  return project
-    ? generateKey(PROJECT_ENTITY_TYPE, project.id)
-    : generateKey(PROJECT_ENTITY_TYPE);
-}
-
-function findProjectByIssue(
-  projects: Project[],
-  issue: Issue,
-): Project | undefined {
-  return projects.find(project => project.id === issue.fields.project.id);
+  return generateKey(PROJECT_ENTITY_TYPE, issue.fields.project.id);
 }

@@ -19,9 +19,9 @@ export function createIssueEntities(data: Issue[]): IssueEntity[] {
       category: "issue",
       webLink: issue.self,
       status: issue.fields.status.name,
-      reporter: (issue.fields.reporter && issue.fields.reporter.name) || "",
+      reporter: issue.fields.reporter && issue.fields.reporter.name,
       assignee: (issue.fields.assignee && issue.fields.assignee.name) || "",
-      creator: (issue.fields.creator && issue.fields.creator.name) || "",
+      creator: issue.fields.creator && issue.fields.creator.name,
     };
 
     return issueEntity;
